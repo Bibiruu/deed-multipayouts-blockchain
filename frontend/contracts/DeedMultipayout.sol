@@ -7,8 +7,8 @@ contract DeedMultipayout {
     uint256 public earliest;
     uint256 public amount;
     //gas saving and storing info to code rather than blockchain
-    uint256 public constant MAXPAYOUTS = 10;
-    uint256 public constant INTERVAL = 10;
+    uint256 public constant MAXPAYOUTS = 4;
+    uint256 public constant INTERVAL = 1;
     uint256 public paidPayouts;
     
     constructor(
@@ -23,10 +23,10 @@ contract DeedMultipayout {
         amount = msg.value / MAXPAYOUTS;
     }
     function withdraw() public {
-        require(msg.sender == beneficiary, "Beneficiary only");
-        //preventing premature withdrawals
+        require(msg.sender == lawyer, "Lawyer only");
+        //checks that the current time is past the earliest allowed withdrawal time
         require(block.timestamp >= earliest, "Too early to withdraw");
-        //made payouts vs max payouts.
+        //ensures there are still payouts left to be withdrawn
         require(paidPayouts < MAXPAYOUTS, "No payouts left");
         //how many payouts should we receive ex. 10 seconds / 10 seconds per interval = 1 payout
         uint256 elligiblePayouts = (block.timestamp - earliest) / INTERVAL;

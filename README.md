@@ -24,3 +24,13 @@ Project takeouts:
 -How to impose time restriction for transfering money with timer. 
 -Milestone Tracking: In a contract that involves project milestones, paidPayouts could track completed milestones, ensuring no more than the expected milestones are marked as completed.
 -The purpose of withdrawing in 4 or 2 intervals is to simulate and test the contract's functionality for scheduled, periodic payouts. This ensures that the contract correctly handles multiple withdrawals over time, adhering to the specified intervals and payout amounts.  It verifies that the contract enforces the timing constraints and calculates the due payouts accurately. Additionally, these tests help ensure the beneficiary cannot withdraw more than allowed and that the funds are distributed as intended.
+
+*Deployment done in two parts because of network congestion*
+
+Checkout my testnet deployment at Eth Sepolia:
+
+Migrations:
+https://sepolia.etherscan.io/tx/0x28854e640cdd90524fd2708ee8fc38a70552395b3e23491ad5ee899d38870ac4
+
+DeedMultipayout:
+https://sepolia.etherscan.io/tx/0xe70f46fbc381841be20afe1a3042a10997b75306cf2fe1333637f4c7b10994cc

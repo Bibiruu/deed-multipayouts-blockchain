@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.19+commit.7dd6d404"
+		"version": "0.8.26+commit.8a97fa7a"
 	},
 	"language": "Solidity",
 	"output": {
@@ -140,7 +140,7 @@
 		"compilationTarget": {
 			"contracts/DeedMultipayout.sol": "DeedMultipayout"
 		},
-		"evmVersion": "paris",
+		"evmVersion": "cancun",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"
@@ -153,11 +153,11 @@
 	},
 	"sources": {
 		"contracts/DeedMultipayout.sol": {
-			"keccak256": "0xc720ed89890d07f09c9a782467b244b4314a550cfe6cf23abc423b53e1840c68",
+			"keccak256": "0xecbb7ee3f278ebe0d8538b59e8276858bc34fbdc58f87dad70fb69107a3c4f22",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://b856a91745bcb0d236fcb28bc406c64011e4e796490185fc9d04a056d6715a55",
-				"dweb:/ipfs/QmYysbjPu5Q6dCi59PtvfMbukR5bgPpChhwWLGiFyAcdkH"
+				"bzz-raw://985cdc700c1ff99f2f4f37c02fb30be2db5e2a04be73adde5e0d04e87771cf31",
+				"dweb:/ipfs/QmarH71PqAK5yWRsKFBWRSBPNGxa5GTGDdEAPnakuixbrH"
 			]
 		}
 	},

@@ -8,7 +8,7 @@ const initWeb3 = () => {
   return new Promise((resolve, reject) => {
     if(typeof window.ethereum !== 'undefined') {
       const web3 = new Web3(window.ethereum);
-      window.ethereum.enable()
+      window.ethereum.request({ method: 'eth_requestAccounts' })
         .then(() => {
           resolve(
             new Web3(window.ethereum)
@@ -24,7 +24,7 @@ const initWeb3 = () => {
         new Web3(window.web3.currentProvider)
       );
     }
-    resolve(new Web3('http://localhost:9545'));
+    resolve(new Web3('https://localhost:9545'));
   });
 };
 
@@ -40,7 +40,7 @@ const initContract = async () => {
 
 const initApp = () => {
   const $withdraw = document.getElementById('withdraw');
-  const $widthdrawResult = document.getElementById('withdraw-result');
+  const $withdrawResult = document.getElementById('withdraw-result');
   const $balance = document.getElementById('balance');
   const $paidPayouts = document.getElementById('paid-payouts');
   const $earliest = document.getElementById('earliest');
@@ -88,14 +88,15 @@ const initApp = () => {
     e.preventDefault();
     deedMultiPayout.methods
       .withdraw()
+      .send({ from: accounts[1]})
       .then(result => {
-        $widthdrawResult.innerHTML = `Withdrawal succesful!`;
+        $withdrawResult.innerHTML = `Withdrawal succesful!`;
         refreshBalance();
         refreshPaidPayouts();
         refreshEarliest();
       })
       .catch(_e => {
-        $widthdrawResult.innerHTML = `Ooops... there was an error while trying to widthdraw...`;
+        $withdrawResult.innerHTML = `Ooops... there was an error while trying to withdraw...`;
       });
   });
 
@@ -110,8 +111,8 @@ document.addEventListener('DOMContentLoaded', () => {
       web3 = _web3;
       return initContract();
     })
-    .then(_deedMultiPayouts => {
-      deedMultiPayout = _deedMultiPayouts;
+    .then(_deedMultiPayout => {
+      deedMultiPayout = _deedMultiPayout;
       initApp(); 
     })
     .catch(e => console.log(e.message));

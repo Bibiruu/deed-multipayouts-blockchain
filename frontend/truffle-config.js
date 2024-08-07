@@ -20,7 +20,7 @@ module.exports = {
         `https://eth-sepolia.g.alchemy.com/v2/${process.env.ALCHMY_ENDPOINT}`
       ),
       network_id: 11155111,
-      gas: 461700,               // Gas limit
+      gas: 6000000,               // Gas limit
       gasPrice: 20000000000,       // 20 Gwei
       confirmations: 1,
       timeoutBlocks: 200,
