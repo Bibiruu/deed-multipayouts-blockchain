@@ -56,6 +56,7 @@ const initApp = () => {
     web3.eth.getBalance(deedMultiPayout.options.address)
     .then(balance => {
       $balance.innerHTML = balance;
+      console.log('balance of refreshbalance', balance)
     });
   }
 
@@ -88,7 +89,7 @@ const initApp = () => {
     e.preventDefault();
     deedMultiPayout.methods
       .withdraw()
-      .send({ from: accounts[1]})
+      .send({from: accounts[1]})
       .then(result => {
         $withdrawResult.innerHTML = `Withdrawal succesful!`;
         refreshBalance();
