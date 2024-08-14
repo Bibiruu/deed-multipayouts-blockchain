@@ -1,12 +1,12 @@
 import Web3 from 'web3';
-import DeedMultiPayout from '../build/contracts/DeedMultiPayout.json';
+import DeedMultipayout from '../build/contracts/DeedMultipayout.json';
 
 let web3;
 let deedMultiPayout;
 
 const initWeb3 = () => {
   return new Promise((resolve, reject) => {
-    if(typeof window.ethereum !== 'undefined') {
+    if (typeof window.ethereum !== 'undefined') {
       const web3 = new Web3(window.ethereum);
       window.ethereum.request({ method: 'eth_requestAccounts' })
         .then(() => {
@@ -19,7 +19,7 @@ const initWeb3 = () => {
         });
       return;
     }
-    if(typeof window.web3 !== 'undefined') {
+    if (typeof window.web3 !== 'undefined') {
       return resolve(
         new Web3(window.web3.currentProvider)
       );
@@ -31,8 +31,8 @@ const initWeb3 = () => {
 const initContract = async () => {
   const networkId = await web3.eth.net.getId();
   return new web3.eth.Contract(
-    DeedMultiPayout.abi, 
-    DeedMultiPayout
+    DeedMultipayout.abi,
+    DeedMultipayout
       .networks[networkId]
       .address
   );
@@ -48,48 +48,48 @@ const initApp = () => {
   //getting accounts
   let accounts = [];
   web3.eth.getAccounts()
-  .then(_accounts => {
-    accounts = _accounts;
-  });
+    .then(_accounts => {
+      accounts = _accounts;
+    });
 
   const refreshBalance = () => {
     web3.eth.getBalance(deedMultiPayout.options.address)
-    .then(balance => {
-      $balance.innerHTML = balance;
-      console.log('balance of refreshbalance', balance)
-    });
+      .then(balance => {
+        $balance.innerHTML = balance;
+        console.log('balance of refreshbalance', balance)
+      });
   }
 
   const refreshPaidPayouts = () => {
     deedMultiPayout.methods
-    .paidPayouts()
-    .call()
-    .then(paidPayouts => {
-      $paidPayouts.innerHTML = `${paidPayouts}/10`;
-    })
-    .catch(_e => {
-      $paidPayouts.innerHTML = `Ooops... there was an error while reading paidPayouts...`;
-    });
+      .paidPayouts()
+      .call()
+      .then(paidPayouts => {
+        $paidPayouts.innerHTML = `${paidPayouts}/10`;
+      })
+      .catch(_e => {
+        $paidPayouts.innerHTML = `Ooops... there was an error while reading paidPayouts...`;
+      });
   }
 
   const refreshEarliest = () => {
     deedMultiPayout.methods
-    .earliest()
-    .call()
-    .then(earliest => {
-      //Returned timestamp is in second.. but Javascript timestamp are in milliseconds...
-      $earliest.innerHTML = `${(new Date(parseInt(earliest) * 1000)).toLocaleString()}/10`;
-    })
-    .catch(_e => {
-      $earliest.innerHTML = `Ooops... there was an error while reading earliest...`;
-    });
+      .earliest()
+      .call()
+      .then(earliest => {
+        //Returned timestamp is in second.. but Javascript timestamp are in milliseconds...
+        $earliest.innerHTML = `${(new Date(parseInt(earliest) * 1000)).toLocaleString()}/10`;
+      })
+      .catch(_e => {
+        $earliest.innerHTML = `Ooops... there was an error while reading earliest...`;
+      });
   }
 
   $withdraw.addEventListener('submit', (e) => {
     e.preventDefault();
     deedMultiPayout.methods
       .withdraw()
-      .send({from: accounts[1]})
+      .send({from:accounts[0]})
       .then(result => {
         $withdrawResult.innerHTML = `Withdrawal succesful!`;
         refreshBalance();
@@ -114,7 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     .then(_deedMultiPayout => {
       deedMultiPayout = _deedMultiPayout;
-      initApp(); 
+      initApp();
     })
     .catch(e => console.log(e.message));
 });

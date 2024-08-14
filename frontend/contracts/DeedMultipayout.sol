@@ -23,7 +23,7 @@ contract DeedMultipayout {
         amount = msg.value / MAXPAYOUTS;
     }
     function withdraw() public {
-        require(msg.sender == lawyer, "Lawyer only");
+        require(msg.sender == beneficiary, "Beneficiary only");
         //checks that the current time is past the earliest allowed withdrawal time
         require(block.timestamp >= earliest, "Too early to withdraw");
         //ensures there are still payouts left to be withdrawn
